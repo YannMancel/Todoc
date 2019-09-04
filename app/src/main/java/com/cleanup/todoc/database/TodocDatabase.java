@@ -10,7 +10,9 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.cleanup.todoc.database.dao.ProjectDao;
+import com.cleanup.todoc.database.dao.TaskDao;
 import com.cleanup.todoc.model.Project;
+import com.cleanup.todoc.model.Task;
 
 /**
  * Created by Yann MANCEL on 03/09/2019.
@@ -21,7 +23,8 @@ import com.cleanup.todoc.model.Project;
  *
  * Pattern Singleton
  */
-@Database(entities = {Project.class},
+@Database(entities = {Project.class,
+                      Task.class},
           version = 1,
           exportSchema = false)
 public abstract class TodocDatabase extends RoomDatabase {
@@ -29,9 +32,11 @@ public abstract class TodocDatabase extends RoomDatabase {
     // FIELDS --------------------------------------------------------------------------------------
 
     private static volatile TodocDatabase INSTANCE;
+
     public static final String DATABASE_NAME = "TodocDatabase.db";
 
     public abstract ProjectDao mProjectDao();
+    public abstract TaskDao mTaskDao();
 
     // METHODS -------------------------------------------------------------------------------------
 

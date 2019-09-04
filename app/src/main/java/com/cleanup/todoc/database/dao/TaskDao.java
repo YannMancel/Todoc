@@ -6,40 +6,40 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.cleanup.todoc.model.Project;
+import com.cleanup.todoc.model.Task;
 
 import java.util.List;
 
 /**
- * Created by Yann MANCEL on 03/09/2019.
+ * Created by Yann MANCEL on 04/09/2019.
  * Name of the project: todoc-master
- * Name of the package: com.cleanup.todoc.model.dao
+ * Name of the package: com.cleanup.todoc.database.dao
  *
  * Pattern Data Access Object
  */
 @Dao
-public interface ProjectDao {
+public interface TaskDao {
 
     // CREATE **************************************************************************************
 
     @Insert
-    long insertProject(Project project);
+    long insertTask(Task task);
 
     // READ ****************************************************************************************
 
-    @Query("SELECT * FROM project")
-    LiveData<List<Project>> getProjects();
+    @Query("SELECT * FROM task")
+    LiveData<List<Task>> getTasks();
 
-    @Query("SELECT * FROM project WHERE id = :projectId")
-    LiveData<Project> getProjectById(final long projectId);
+    @Query("SELECT * FROM task WHERE id = :taskId")
+    LiveData<Task> getTaskById(final long taskId);
 
     // UPDATE **************************************************************************************
 
     @Update
-    int updateProject(Project project);
+    int updateTask(Task task);
 
     // DELETE **************************************************************************************
 
-    @Query("DELETE FROM project WHERE id = :projectId")
-    int deleteProjectById(final long projectId);
+    @Query("DELETE FROM task WHERE id = :taskId")
+    int deleteTaskById(final long taskId);
 }

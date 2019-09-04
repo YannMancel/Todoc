@@ -73,16 +73,16 @@ public class ProjectDaoTest {
     // READ ****************************************************************************************
 
     @Test
-    public void getProject_shouldBeNull() throws InterruptedException {
+    public void getProjectById_shouldBeNull() throws InterruptedException {
         final Project project = LiveDataTestUtil.getValue(this.mDatabase.mProjectDao()
-                                                                        .getProject(FIRST_PROJECT_ID));
+                                                                        .getProjectById(FIRST_PROJECT_ID));
 
         // TEST: No project
         assertNull(project);
     }
 
     @Test
-    public void getProjects_shouldBeNull() throws InterruptedException {
+    public void getProjects_shouldBeEmpty() throws InterruptedException {
         final List<Project> projects = LiveDataTestUtil.getValue(this.mDatabase.mProjectDao()
                                                                                .getProjects());
 
@@ -91,14 +91,14 @@ public class ProjectDaoTest {
     }
 
     @Test
-    public void insertProject_Then_getProject_shouldBeSuccess() throws InterruptedException {
+    public void insertProject_Then_getProjectById_shouldBeSuccess() throws InterruptedException {
         // BEFORE: Adds a project
         this.mDatabase.mProjectDao()
                       .insertProject(FIRST_PROJECT);
 
         // THEN: Retrieves the project thanks to its Id
         final Project project = LiveDataTestUtil.getValue(this.mDatabase.mProjectDao()
-                                                                        .getProject(FIRST_PROJECT_ID));
+                                                                        .getProjectById(FIRST_PROJECT_ID));
 
         // TEST: The only project
         final Project expectedProject = new Project(FIRST_PROJECT_ID,
@@ -139,7 +139,7 @@ public class ProjectDaoTest {
     // UPDATE **************************************************************************************
 
     @Test
-    public void insertProject_Then_updateProject_Then_getProject_shouldBeSuccess() {
+    public void insertProject_Then_updateProject_shouldBeSuccess() {
         // BEFORE: Adds a project
         this.mDatabase.mProjectDao()
                       .insertProject(FIRST_PROJECT);
@@ -172,28 +172,28 @@ public class ProjectDaoTest {
     // DELETE **************************************************************************************
 
     @Test
-    public void insertProject_Then_deleteProject_shouldBeSuccess() {
+    public void insertProject_Then_deleteProjectById_shouldBeSuccess() {
         // BEFORE: Adds a project
         this.mDatabase.mProjectDao()
                       .insertProject(FIRST_PROJECT);
 
         // Then: Deletes the project
         final int deleteResult = this.mDatabase.mProjectDao()
-                                               .deleteProject(FIRST_PROJECT_ID);
+                                               .deleteProjectById(FIRST_PROJECT_ID);
 
         // TEST: The only project is deleted
         assertEquals(1, deleteResult);
     }
 
     @Test
-    public void insertProject_Then_deleteProject_shouldBeNotSuccess() {
+    public void insertProject_Then_deleteProjectById_shouldBeNotSuccess() {
         // BEFORE: Adds a project
         this.mDatabase.mProjectDao()
                       .insertProject(FIRST_PROJECT);
 
         // Then: Deletes the project
         final int deleteResult = this.mDatabase.mProjectDao()
-                                               .deleteProject(SECOND_PROJECT_ID);
+                                               .deleteProjectById(SECOND_PROJECT_ID);
 
         // TEST: No delete
         assertEquals(0, deleteResult);
