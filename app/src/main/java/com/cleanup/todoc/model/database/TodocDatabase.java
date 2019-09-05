@@ -1,4 +1,4 @@
-package com.cleanup.todoc.database;
+package com.cleanup.todoc.model.database;
 
 import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
@@ -9,10 +9,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.cleanup.todoc.database.dao.ProjectDao;
-import com.cleanup.todoc.database.dao.TaskDao;
-import com.cleanup.todoc.model.Project;
-import com.cleanup.todoc.model.Task;
+import com.cleanup.todoc.model.dao.ProjectDao;
+import com.cleanup.todoc.model.dao.TaskDao;
+import com.cleanup.todoc.model.pojos.Project;
+import com.cleanup.todoc.model.pojos.Task;
 
 /**
  * Created by Yann MANCEL on 03/09/2019.
@@ -21,7 +21,7 @@ import com.cleanup.todoc.model.Task;
  *
  * A abstract class that extends {@link RoomDatabase}
  *
- * Pattern Singleton
+ * Design Pattern: Singleton
  */
 @Database(entities = {Project.class,
                       Task.class},
@@ -40,6 +40,8 @@ public abstract class TodocDatabase extends RoomDatabase {
 
     // METHODS -------------------------------------------------------------------------------------
 
+    // -- INSTANCE --
+
     public static TodocDatabase getInstance(final Context context) {
         if (INSTANCE == null) {
             synchronized (TodocDatabase.class) {
@@ -56,7 +58,7 @@ public abstract class TodocDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
-    // PREPOPULATE THE DATABASE ********************************************************************
+    // -- PREPOPULATE THE DATABASE --
 
     /**
      * Returns a {@link android.arch.persistence.room.RoomDatabase.Callback} that
@@ -70,13 +72,10 @@ public abstract class TodocDatabase extends RoomDatabase {
                                     super.onCreate(db);
 
                                     ContentValues contentValues = new ContentValues();
-//                                    contentValues.put("id", 1);
                                     contentValues.put("name", "Projet Tartampion");
                                     contentValues.put("color", 0xFFEADAD1);
 
                                     db.insert("Project", OnConflictStrategy.IGNORE, contentValues);
-
-
 
 //                                      new Project(1L, "Projet Tartampion", 0xFFEADAD1),
 //                                              new Project(2L, "Projet Lucidia", 0xFFB4CDBA),
@@ -85,5 +84,4 @@ public abstract class TodocDatabase extends RoomDatabase {
                                   }
                               };
     }
-
 }

@@ -18,8 +18,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.cleanup.todoc.R;
-import com.cleanup.todoc.model.Project;
-import com.cleanup.todoc.model.Task;
+import com.cleanup.todoc.model.pojos.Project;
+import com.cleanup.todoc.model.pojos.Task;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -1,4 +1,4 @@
-package com.cleanup.todoc.database;
+package com.cleanup.todoc.database.dao;
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule;
 import android.arch.persistence.room.Room;
@@ -7,8 +7,10 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.cleanup.todoc.database.utils.LiveDataTestUtil;
-import com.cleanup.todoc.model.Project;
-import com.cleanup.todoc.model.Task;
+import com.cleanup.todoc.model.dao.TaskDao;
+import com.cleanup.todoc.model.database.TodocDatabase;
+import com.cleanup.todoc.model.pojos.Project;
+import com.cleanup.todoc.model.pojos.Task;
 
 import org.junit.After;
 import org.junit.Before;
@@ -26,7 +28,7 @@ import static org.junit.Assert.assertNull;
  * Name of the project: todoc-master
  * Name of the package: com.cleanup.todoc.database
  *
- * Android test on {@link com.cleanup.todoc.database.dao.TaskDao}
+ * Android test on {@link TaskDao}.
  */
 @RunWith(AndroidJUnit4.class)
 public class TaskDaoTest {
@@ -68,7 +70,7 @@ public class TaskDaoTest {
         this.mDatabase.close();
     }
 
-    // CREATE **************************************************************************************
+    // -- CREATE --
 
     @Test
     public void insertTask_shouldBeSuccess() {
@@ -84,11 +86,11 @@ public class TaskDaoTest {
         // BEFORE: Create task with a project id that is not present in project table
         Task task = new Task(100, "Task error", 6);
 
-        final long insertResult = this.mDatabase.mTaskDao()
-                                                .insertTask(task);
+        this.mDatabase.mTaskDao()
+                      .insertTask(task);
     }
 
-    // READ ****************************************************************************************
+    // -- READ --
 
     @Test
     public void getTaskById_shouldBeNull() throws InterruptedException {
@@ -156,7 +158,7 @@ public class TaskDaoTest {
         assertEquals(expectedTask, tasks.get(1));
     }
 
-    // UPDATE **************************************************************************************
+    // -- UPDATE --
 
     @Test
     public void insertTask_Then_updateTask_shouldBeSuccess() {
@@ -190,7 +192,7 @@ public class TaskDaoTest {
         assertEquals(0, updateResult);
     }
 
-    // DELETE **************************************************************************************
+    // -- DELETE --
 
     @Test
     public void insertTask_Then_deleteProjectById_shouldBeSuccess() {

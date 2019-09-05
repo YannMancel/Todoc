@@ -1,4 +1,4 @@
-package com.cleanup.todoc.database.dao;
+package com.cleanup.todoc.model.dao;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
@@ -6,7 +6,7 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.cleanup.todoc.model.Project;
+import com.cleanup.todoc.model.pojos.Project;
 
 import java.util.List;
 
@@ -15,17 +15,19 @@ import java.util.List;
  * Name of the project: todoc-master
  * Name of the package: com.cleanup.todoc.model.dao
  *
- * Pattern Data Access Object
+ * Design Pattern: Data Access Object
  */
 @Dao
 public interface ProjectDao {
 
-    // CREATE **************************************************************************************
+    // METHODS -------------------------------------------------------------------------------------
+
+    // -- CREATE --
 
     @Insert
-    long insertProject(Project project);
+    long insertProject(final Project project);
 
-    // READ ****************************************************************************************
+    // -- READ --
 
     @Query("SELECT * FROM project")
     LiveData<List<Project>> getProjects();
@@ -33,12 +35,12 @@ public interface ProjectDao {
     @Query("SELECT * FROM project WHERE id = :projectId")
     LiveData<Project> getProjectById(final long projectId);
 
-    // UPDATE **************************************************************************************
+    // -- UPDATE --
 
     @Update
-    int updateProject(Project project);
+    int updateProject(final Project project);
 
-    // DELETE **************************************************************************************
+    // -- DELETE --
 
     @Query("DELETE FROM project WHERE id = :projectId")
     int deleteProjectById(final long projectId);

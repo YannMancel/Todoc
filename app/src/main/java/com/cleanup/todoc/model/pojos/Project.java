@@ -1,4 +1,4 @@
-package com.cleanup.todoc.model;
+package com.cleanup.todoc.model.pojos;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
@@ -100,7 +100,7 @@ public class Project {
         return null;
     }
 
-    // GETTER AND SETTER ***************************************************************************
+    // -- GETTER AND SETTER --
 
     public long getId() {
         return id;
@@ -119,7 +119,7 @@ public class Project {
         return color;
     }
 
-    // OBJECT **************************************************************************************
+    // -- FROM OBJECT CLASS --
 
     @Override
     public boolean equals(@Nullable Object obj) {

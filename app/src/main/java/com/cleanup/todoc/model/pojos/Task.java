@@ -1,4 +1,4 @@
-package com.cleanup.todoc.model;
+package com.cleanup.todoc.model.pojos;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
@@ -56,7 +56,6 @@ public class Task {
 
     /**
      * Instantiates a new Task.
-     *
      * @param id                the unique identifier of the task to set
      * @param projectId         the unique identifier of the project associated to the task to set
      * @param name              the name of the task to set
@@ -83,6 +82,8 @@ public class Task {
     }
 
     // METHODS -------------------------------------------------------------------------------------
+
+    // -- GETTER AND SETTER --
 
     public long getId() {
         return this.id;
@@ -113,14 +114,14 @@ public class Task {
         this.creationTimestamp = creationTimestamp;
     }
 
-    // PROJECTS ************************************************************************************
+    // -- PROJECTS --
 
     @Nullable
     public Project getProject() {
         return Project.getProjectById(this.projectId);
     }
 
-    // OBJECT **************************************************************************************
+    // -- FROM OBJECT CLASS --
 
     @Override
     public boolean equals(@Nullable Object obj) {

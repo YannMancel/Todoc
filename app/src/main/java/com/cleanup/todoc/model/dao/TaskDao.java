@@ -1,4 +1,4 @@
-package com.cleanup.todoc.database.dao;
+package com.cleanup.todoc.model.dao;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
@@ -6,7 +6,7 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.cleanup.todoc.model.Task;
+import com.cleanup.todoc.model.pojos.Task;
 
 import java.util.List;
 
@@ -15,17 +15,19 @@ import java.util.List;
  * Name of the project: todoc-master
  * Name of the package: com.cleanup.todoc.database.dao
  *
- * Pattern Data Access Object
+ * Design Pattern: Data Access Object
  */
 @Dao
 public interface TaskDao {
 
-    // CREATE **************************************************************************************
+    // METHODS -------------------------------------------------------------------------------------
+
+    // -- CREATE --
 
     @Insert
-    long insertTask(Task task);
+    long insertTask(final Task task);
 
-    // READ ****************************************************************************************
+    // -- READ --
 
     @Query("SELECT * FROM task")
     LiveData<List<Task>> getTasks();
@@ -33,12 +35,12 @@ public interface TaskDao {
     @Query("SELECT * FROM task WHERE id = :taskId")
     LiveData<Task> getTaskById(final long taskId);
 
-    // UPDATE **************************************************************************************
+    // -- UPDATE --
 
     @Update
-    int updateTask(Task task);
+    int updateTask(final Task task);
 
-    // DELETE **************************************************************************************
+    // -- DELETE --
 
     @Query("DELETE FROM task WHERE id = :taskId")
     int deleteTaskById(final long taskId);

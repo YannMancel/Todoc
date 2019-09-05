@@ -1,12 +1,14 @@
-package com.cleanup.todoc.database;
+package com.cleanup.todoc.database.dao;
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule;
 import android.arch.persistence.room.Room;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.cleanup.todoc.model.dao.ProjectDao;
+import com.cleanup.todoc.model.database.TodocDatabase;
 import com.cleanup.todoc.database.utils.LiveDataTestUtil;
-import com.cleanup.todoc.model.Project;
+import com.cleanup.todoc.model.pojos.Project;
 
 import org.junit.After;
 import org.junit.Before;
@@ -24,7 +26,7 @@ import static org.junit.Assert.assertNull;
  * Name of the project: todoc-master
  * Name of the package: com.cleanup.todoc
  *
- * Android test on {@link com.cleanup.todoc.database.dao.ProjectDao}
+ * Android test on {@link ProjectDao}.
  */
 @RunWith(AndroidJUnit4.class)
 public class ProjectDaoTest {
@@ -59,7 +61,7 @@ public class ProjectDaoTest {
         this.mDatabase.close();
     }
 
-    // CREATE **************************************************************************************
+    // -- CREATE --
 
     @Test
     public void insertProject_shouldBeSuccess() {
@@ -70,7 +72,7 @@ public class ProjectDaoTest {
         assertEquals(FIRST_PROJECT_ID, insertResult);
     }
 
-    // READ ****************************************************************************************
+    // -- READ --
 
     @Test
     public void getProjectById_shouldBeNull() throws InterruptedException {
@@ -136,7 +138,7 @@ public class ProjectDaoTest {
         assertEquals(expectedProject, projects.get(1));
     }
 
-    // UPDATE **************************************************************************************
+    // -- UPDATE --
 
     @Test
     public void insertProject_Then_updateProject_shouldBeSuccess() {
@@ -169,7 +171,7 @@ public class ProjectDaoTest {
         assertEquals(0, updateResult);
     }
 
-    // DELETE **************************************************************************************
+    // -- DELETE --
 
     @Test
     public void insertProject_Then_deleteProjectById_shouldBeSuccess() {
