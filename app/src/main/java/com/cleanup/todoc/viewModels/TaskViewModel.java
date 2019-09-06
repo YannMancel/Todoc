@@ -1,0 +1,95 @@
+package com.cleanup.todoc.viewModels;
+
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.ViewModel;
+
+import com.cleanup.todoc.model.pojos.Project;
+import com.cleanup.todoc.model.pojos.Task;
+import com.cleanup.todoc.repositories.Repository;
+
+import java.util.List;
+import java.util.concurrent.Executor;
+
+/**
+ * Created by Yann MANCEL on 06/09/2019.
+ * Name of the project: todoc-master
+ * Name of the package: com.cleanup.todoc.viewModels
+ *
+ * A {@link ViewModel} subclass.
+ */
+public class TaskViewModel extends ViewModel {
+
+    // FIELDS --------------------------------------------------------------------------------------
+
+    private final Repository.ProjectRepository mProjectRepository;
+    private final Repository.TaskRepository mTaskRepository;
+    private final Executor mExecutor;
+
+    private LiveData<List<Project>> mProjects;
+
+    // CONSTRUCTORS --------------------------------------------------------------------------------
+
+    /**
+     * Constructor
+     * @param projectRepository a {@link Repository.ProjectRepository}
+     * @param taskRepository a {@link Repository.TaskRepository}
+     * @param executor a {@link Executor}
+     */
+    public TaskViewModel(Repository.ProjectRepository projectRepository,
+                         Repository.TaskRepository taskRepository,
+                         Executor executor) {
+        this.mProjectRepository = projectRepository;
+        this.mTaskRepository = taskRepository;
+        this.mExecutor = executor;
+    }
+
+    // METHODS -------------------------------------------------------------------------------------
+
+    // -- INITIALISATION --
+
+    /**
+     * Initializes the {@link ViewModel}
+     */
+    public void init() {
+        // PROJECTS
+        if (this.mProjects == null) {
+            this.mProjects = this.mProjectRepository.getProjects();
+        }
+    }
+
+    // -- TASKS --
+
+    /**
+     * Inserts a {@link Task} into database in asynchronous way
+     * @param task a {@link Task}
+     */
+    public void insertTask(final Task task) {
+        this.mExecutor.execute(() -> this.mTaskRepository.insertTask(task));
+    }
+
+    /**
+     * Returns a {@link LiveData} of {@link List} of {@link Task}
+     * @return a {@link LiveData} of {@link List} of {@link Task}
+     */
+    public LiveData<List<Task>> getTasks() {
+        return this.mTaskRepository.getTasks();
+    }
+
+    /**
+     * Deletes a {@link Task} into database in asynchronous way
+     * @param taskId an integer that contains the id value
+     */
+    public void deleteTaskById(final long taskId) {
+        this.mExecutor.execute(() -> this.mTaskRepository.deleteTaskById(taskId));
+    }
+
+    // -- PROJECTS --
+
+    /**
+     * Returns a {@link LiveData} of {@link List} of {@link Project}
+     * @return a {@link LiveData} of {@link List} of {@link Project}
+     */
+    public LiveData<List<Project>> getProjects() {
+        return this.mProjects;
+    }
+}

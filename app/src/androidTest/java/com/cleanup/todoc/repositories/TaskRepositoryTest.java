@@ -1,5 +1,6 @@
 package com.cleanup.todoc.repositories;
 
+import android.arch.core.executor.testing.InstantTaskExecutorRule;
 import android.arch.persistence.room.Room;
 import android.database.sqlite.SQLiteConstraintException;
 import android.support.test.InstrumentationRegistry;
@@ -12,6 +13,7 @@ import com.cleanup.todoc.model.pojos.Task;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -32,14 +34,19 @@ public class TaskRepositoryTest {
 
     // FIELDS --------------------------------------------------------------------------------------
 
-    private Repository.TaskRepository mRepository;
     private TodocDatabase mDatabase;
+    private Repository.TaskRepository mRepository;
 
     private final long FIRST_TASK_ID = 1;
     private final Task FIRST_TASK = new Task(1, "Task 1", 0);
 
     private final long SECOND_TASK_ID = 2;
     private final Task SECOND_TASK = new Task(1, "Task 2", 1);
+
+    // RULES (Synchronized Tests) ------------------------------------------------------------------
+
+    @Rule
+    public InstantTaskExecutorRule mInstantTaskExecutorRule = new InstantTaskExecutorRule();
 
     // METHODS -------------------------------------------------------------------------------------
 

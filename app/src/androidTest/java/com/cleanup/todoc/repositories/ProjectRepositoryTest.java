@@ -1,5 +1,6 @@
 package com.cleanup.todoc.repositories;
 
+import android.arch.core.executor.testing.InstantTaskExecutorRule;
 import android.arch.persistence.room.Room;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
@@ -10,6 +11,7 @@ import com.cleanup.todoc.model.pojos.Project;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -31,14 +33,19 @@ public class ProjectRepositoryTest {
 
     // FIELDS --------------------------------------------------------------------------------------
 
-    private Repository.ProjectRepository mRepository;
     private TodocDatabase mDatabase;
+    private Repository.ProjectRepository mRepository;
 
     private final long FIRST_PROJECT_ID = 1;
     private final Project FIRST_PROJECT = new Project("Project 1", 0xFFEADAD1);
 
     private final long SECOND_PROJECT_ID = 2;
     private final Project SECOND_PROJECT = new Project("Project 2", 0xFFB4CDBA);
+
+    // RULES (Synchronized Tests) ------------------------------------------------------------------
+
+    @Rule
+    public InstantTaskExecutorRule mInstantTaskExecutorRule = new InstantTaskExecutorRule();
 
     // METHODS -------------------------------------------------------------------------------------
 
