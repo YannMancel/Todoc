@@ -1,4 +1,4 @@
-package com.cleanup.todoc.ui;
+package com.cleanup.todoc.views.activities;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.cleanup.todoc.R;
 import com.cleanup.todoc.model.pojos.Project;
 import com.cleanup.todoc.model.pojos.Task;
+import com.cleanup.todoc.views.recyclerViews.TasksAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
