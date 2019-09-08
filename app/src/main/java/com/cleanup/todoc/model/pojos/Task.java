@@ -12,9 +12,9 @@ import java.util.Comparator;
 import java.util.Objects;
 
 /**
- * <p>Model for the tasks of the application.</p>
- *
- * @author Gaëtan HERFRAY
+ * Created by Yann MANCEL on 03/09/2019.
+ * Name of the project: todoc-master
+ * Name of the package: com.cleanup.todoc.model.pojos
  */
 @Entity(tableName = "task",
         foreignKeys = @ForeignKey(entity = Project.class,
@@ -112,13 +112,6 @@ public class Task {
     }
     private void setCreationTimestamp(long creationTimestamp) {
         this.creationTimestamp = creationTimestamp;
-    }
-
-    // -- PROJECTS --
-
-    @Nullable
-    public Project getProject() {
-        return Project.getProjectById(this.projectId);
     }
 
     // -- FROM OBJECT CLASS --

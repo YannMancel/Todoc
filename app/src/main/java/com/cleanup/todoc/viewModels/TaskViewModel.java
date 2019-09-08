@@ -68,8 +68,8 @@ public class TaskViewModel extends ViewModel {
     }
 
     /**
-     * Returns a {@link LiveData} of {@link List} of {@link Task}
-     * @return a {@link LiveData} of {@link List} of {@link Task}
+     * Returns a {@link LiveData} of {@link List<Task>}
+     * @return a {@link LiveData} of {@link List<Task>}
      */
     public LiveData<List<Task>> getTasks() {
         return this.mTaskRepository.getTasks();
@@ -86,8 +86,8 @@ public class TaskViewModel extends ViewModel {
     // -- PROJECTS --
 
     /**
-     * Returns a {@link LiveData} of {@link List} of {@link Project}
-     * @return a {@link LiveData} of {@link List} of {@link Project}
+     * Returns a {@link LiveData} of {@link List<Project>}
+     * @return a {@link LiveData} of {@link List<Project>}
      */
     public LiveData<List<Project>> getProjects() {
         return this.mProjects;

@@ -34,8 +34,8 @@ public interface Repository {
         // -- READ --
 
         /**
-         * Returns a {@link LiveData} of {@link List} of {@link Project}
-         * @return a {@link LiveData} of {@link List} of {@link Project}
+         * Returns a {@link LiveData} of {@link List<Project>}
+         * @return a {@link LiveData} of {@link List<Project>}
          */
         LiveData<List<Project>> getProjects();
 
@@ -65,8 +65,8 @@ public interface Repository {
         // -- READ --
 
         /**
-         * Returns a {@link LiveData} of {@link List} of {@link Task}
-         * @return a {@link LiveData} of {@link List} of {@link Task}
+         * Returns a {@link LiveData} of {@link List<Task>}
+         * @return a {@link LiveData} of {@link List<Task>}
          */
         LiveData<List<Task>> getTasks();
 

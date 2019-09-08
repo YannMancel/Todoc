@@ -17,9 +17,9 @@ import com.cleanup.todoc.model.pojos.Task;
 /**
  * Created by Yann MANCEL on 03/09/2019.
  * Name of the project: todoc-master
- * Name of the package: com.cleanup.todoc.database
+ * Name of the package: com.cleanup.todoc.model.database
  *
- * A abstract class that extends {@link RoomDatabase}
+ * A abstract class that extends {@link RoomDatabase}.
  *
  * Design Pattern: Singleton
  */
@@ -33,7 +33,9 @@ public abstract class TodocDatabase extends RoomDatabase {
 
     private static volatile TodocDatabase INSTANCE;
 
-    public static final String DATABASE_NAME = "TodocDatabase.db";
+    private static final String DATABASE_NAME = "TodocDatabase.db";
+
+    // DAO------------------------------------------------------------------------------------------
 
     public abstract ProjectDao mProjectDao();
     public abstract TaskDao mTaskDao();
@@ -42,6 +44,11 @@ public abstract class TodocDatabase extends RoomDatabase {
 
     // -- INSTANCE --
 
+    /**
+     * Returns the instance of {@link TodocDatabase}
+     * @param context a {@link Context}
+     * @return the instance of {@link TodocDatabase}
+     */
     public static TodocDatabase getInstance(final Context context) {
         if (INSTANCE == null) {
             synchronized (TodocDatabase.class) {
@@ -62,26 +69,34 @@ public abstract class TodocDatabase extends RoomDatabase {
 
     /**
      * Returns a {@link android.arch.persistence.room.RoomDatabase.Callback} that
-     * alows to prepopulate the database
+     * allows to prepopulate the database
      * @return a {@link android.arch.persistence.room.RoomDatabase.Callback}
      */
     private static Callback prepopulateDatabase() {
         return new Callback() {
-                                  @Override
-                                  public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                                    super.onCreate(db);
+            @Override
+            public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                super.onCreate(db);
 
-                                    ContentValues contentValues = new ContentValues();
-                                    contentValues.put("name", "Projet Tartampion");
-                                    contentValues.put("color", 0xFFEADAD1);
+                ContentValues contentValues = new ContentValues();
 
-                                    db.insert("Project", OnConflictStrategy.IGNORE, contentValues);
+                // PROJECTS 1
+                contentValues.put("name", "Projet Tartampion");
+                contentValues.put("color", 0xFFEADAD1);
+                db.insert("project", OnConflictStrategy.IGNORE, contentValues);
 
-//                                      new Project(1L, "Projet Tartampion", 0xFFEADAD1),
-//                                              new Project(2L, "Projet Lucidia", 0xFFB4CDBA),
-//                                              new Project(3L, "Projet Circus", 0xFFA3CED2),
+                // PROJECTS 2
+                contentValues.clear();
+                contentValues.put("name", "Projet Lucidia");
+                contentValues.put("color", 0xFFB4CDBA);
+                db.insert("project", OnConflictStrategy.IGNORE, contentValues);
 
-                                  }
-                              };
+                // PROJECTS 3
+                contentValues.clear();
+                contentValues.put("name", "Projet Circus");
+                contentValues.put("color", 0xFFA3CED2);
+                db.insert("project", OnConflictStrategy.IGNORE, contentValues);
+            }
+        };
     }
 }

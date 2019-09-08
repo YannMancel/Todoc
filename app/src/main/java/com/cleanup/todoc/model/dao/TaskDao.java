@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by Yann MANCEL on 04/09/2019.
  * Name of the project: todoc-master
- * Name of the package: com.cleanup.todoc.database.dao
+ * Name of the package: com.cleanup.todoc.model.dao
  *
  * Design Pattern: Data Access Object
  */
