@@ -84,7 +84,7 @@ public class TaskViewModel extends ViewModel {
      * Deletes a {@link Task} into database in asynchronous way
      * @param taskId an integer that contains the id value
      */
-    public void deleteTaskById(@NonNull final long taskId) {
+    public void deleteTaskById(final long taskId) {
         this.mExecutor.execute(() -> this.mTaskRepository.deleteTaskById(taskId));
     }
 

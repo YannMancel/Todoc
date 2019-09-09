@@ -1,5 +1,7 @@
 package com.cleanup.todoc;
 
+import com.cleanup.todoc.model.database.TodocDatabase;
+import com.cleanup.todoc.model.pojos.Project;
 import com.cleanup.todoc.model.pojos.Task;
 
 import org.junit.Test;
@@ -8,6 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
 /**
@@ -24,6 +27,19 @@ public class TaskUnitTest {
     private final Task TASK5 = new Task(5, 5, "ZZZ", 127);
 
     // METHODS -------------------------------------------------------------------------------------
+
+    // -- PROJECTS --
+
+    @Test
+    public void test_initial_projects() {
+        final List<Project> projects = TodocDatabase.PROJECTS;
+
+        assertEquals("Projet Tartampion", projects.get(0).getName());
+        assertEquals("Projet Lucidia", projects.get(1).getName());
+        assertEquals("Projet Circus", projects.get(2).getName());
+    }
+
+    // -- COMPARATORS --
 
     @Test
     public void test_az_comparator() {

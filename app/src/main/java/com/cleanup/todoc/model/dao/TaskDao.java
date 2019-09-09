@@ -5,7 +5,6 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
-import android.support.annotation.NonNull;
 
 import com.cleanup.todoc.model.pojos.Task;
 
@@ -26,7 +25,7 @@ public interface TaskDao {
     // -- CREATE --
 
     @Insert
-    long insertTask(@NonNull final Task task);
+    long insertTask(final Task task);
 
     // -- READ --
 
@@ -39,7 +38,7 @@ public interface TaskDao {
     // -- UPDATE --
 
     @Update
-    int updateTask(@NonNull final Task task);
+    int updateTask(final Task task);
 
     // -- DELETE --
 
