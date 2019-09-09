@@ -5,6 +5,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
+import android.support.annotation.NonNull;
 
 import com.cleanup.todoc.model.pojos.Project;
 
@@ -25,7 +26,7 @@ public interface ProjectDao {
     // -- CREATE --
 
     @Insert
-    long insertProject(final Project project);
+    long insertProject(@NonNull final Project project);
 
     // -- READ --
 
@@ -38,7 +39,7 @@ public interface ProjectDao {
     // -- UPDATE --
 
     @Update
-    int updateProject(final Project project);
+    int updateProject(@NonNull final Project project);
 
     // -- DELETE --
 

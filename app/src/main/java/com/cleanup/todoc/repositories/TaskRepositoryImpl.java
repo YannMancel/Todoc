@@ -1,6 +1,7 @@
 package com.cleanup.todoc.repositories;
 
 import android.arch.lifecycle.LiveData;
+import android.support.annotation.NonNull;
 
 import com.cleanup.todoc.model.dao.TaskDao;
 import com.cleanup.todoc.model.pojos.Task;
@@ -18,6 +19,7 @@ public class TaskRepositoryImpl implements Repository.TaskRepository {
 
     // FIELDS --------------------------------------------------------------------------------------
 
+    @NonNull
     private final TaskDao mTaskDao;
 
     // CONSTRUCTORS --------------------------------------------------------------------------------
@@ -26,7 +28,7 @@ public class TaskRepositoryImpl implements Repository.TaskRepository {
      * Constructor
      * @param taskDao a {@link TaskDao}
      */
-    public TaskRepositoryImpl(TaskDao taskDao) {
+    public TaskRepositoryImpl(@NonNull TaskDao taskDao) {
         this.mTaskDao = taskDao;
     }
 
@@ -35,12 +37,13 @@ public class TaskRepositoryImpl implements Repository.TaskRepository {
     // -- CREATE --
 
     @Override
-    public long insertTask(final Task task) {
+    public long insertTask(@NonNull final Task task) {
         return this.mTaskDao.insertTask(task);
     }
 
     // -- READ --
 
+    @NonNull
     @Override
     public LiveData<List<Task>> getTasks() {
         return this.mTaskDao.getTasks();

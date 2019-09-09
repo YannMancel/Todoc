@@ -20,8 +20,11 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
 
     // FIELDS --------------------------------------------------------------------------------------
 
+    @NonNull
     private final Repository.ProjectRepository mProjectRepository;
+    @NonNull
     private final Repository.TaskRepository mTaskRepository;
+    @NonNull
     private final Executor mExecutor;
 
     // CONSTRUCTORS --------------------------------------------------------------------------------
@@ -32,9 +35,9 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
      * @param taskRepository a {@link Repository.TaskRepository}
      * @param executor a {@link Executor}
      */
-    public ViewModelFactory(Repository.ProjectRepository projectRepository,
-                            Repository.TaskRepository taskRepository,
-                            Executor executor) {
+    public ViewModelFactory(@NonNull Repository.ProjectRepository projectRepository,
+                            @NonNull Repository.TaskRepository taskRepository,
+                            @NonNull Executor executor) {
         this.mProjectRepository = projectRepository;
         this.mTaskRepository = taskRepository;
         this.mExecutor = executor;

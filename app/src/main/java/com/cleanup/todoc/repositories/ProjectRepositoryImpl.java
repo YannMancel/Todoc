@@ -1,6 +1,7 @@
 package com.cleanup.todoc.repositories;
 
 import android.arch.lifecycle.LiveData;
+import android.support.annotation.NonNull;
 
 import com.cleanup.todoc.model.dao.ProjectDao;
 import com.cleanup.todoc.model.pojos.Project;
@@ -18,6 +19,7 @@ public class ProjectRepositoryImpl implements Repository.ProjectRepository {
 
     // FIELDS --------------------------------------------------------------------------------------
 
+    @NonNull
     private final ProjectDao mProjectDao;
 
     // CONSTRUCTORS --------------------------------------------------------------------------------
@@ -26,7 +28,7 @@ public class ProjectRepositoryImpl implements Repository.ProjectRepository {
      * Constructor
      * @param projectDao a {@link ProjectDao}
      */
-    public ProjectRepositoryImpl(ProjectDao projectDao) {
+    public ProjectRepositoryImpl(@NonNull ProjectDao projectDao) {
         this.mProjectDao = projectDao;
     }
 
@@ -35,17 +37,19 @@ public class ProjectRepositoryImpl implements Repository.ProjectRepository {
     // -- CREATE --
 
     @Override
-    public long insertProject(final Project project) {
+    public long insertProject(@NonNull final Project project) {
         return this.mProjectDao.insertProject(project);
     }
 
     // -- READ --
 
+    @NonNull
     @Override
     public LiveData<List<Project>> getProjects() {
         return this.mProjectDao.getProjects();
     }
 
+    @NonNull
     @Override
     public LiveData<Project> getProjectById(final long projectId) {
         return this.mProjectDao.getProjectById(projectId);

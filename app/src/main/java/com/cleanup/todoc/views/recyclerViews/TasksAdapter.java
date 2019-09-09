@@ -13,6 +13,7 @@ import com.cleanup.todoc.R;
 import com.cleanup.todoc.model.pojos.Project;
 import com.cleanup.todoc.model.pojos.Task;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,10 +43,8 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
 
     @NonNull
     private List<Task> mTasks;
-
     @NonNull
     private List<Project> mProjects;
-
     @NonNull
     private final DeleteTaskListener mDeleteTaskListener;
 
@@ -131,12 +130,17 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
 
         // FIELDS ----------------------------------------------------------------------------------
 
+        @NonNull
         private final AppCompatImageView mImgProject;
+        @NonNull
         private final TextView mTaskName;
+        @NonNull
         private final TextView mProjectName;
+        @NonNull
         private final AppCompatImageView mImgDelete;
 
-        private final DeleteTaskListener mDeleteTaskListener;
+        @NonNull
+        private final WeakReference<DeleteTaskListener> mDeleteTaskListener;
 
         // CONSTRUCTORS ----------------------------------------------------------------------------
 
@@ -148,7 +152,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
         TaskViewHolder(@NonNull View itemView, @NonNull DeleteTaskListener deleteTaskListener) {
             super(itemView);
 
-            this.mDeleteTaskListener = deleteTaskListener;
+            this.mDeleteTaskListener =  new WeakReference<>(deleteTaskListener);
 
             this.mImgProject = itemView.findViewById(R.id.img_project);
             this.mTaskName = itemView.findViewById(R.id.lbl_task_name);
@@ -158,7 +162,11 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
             this.mImgDelete.setOnClickListener((view) -> {
                     final Object tag = view.getTag();
                     if (tag instanceof Task) {
-                        TaskViewHolder.this.mDeleteTaskListener.onDeleteTask((Task) tag);
+                        final DeleteTaskListener callback = this.mDeleteTaskListener.get();
+
+                        if (callback != null) {
+                            callback.onDeleteTask((Task) tag);
+                        }
                     }
                 });
         }

@@ -110,7 +110,7 @@ public class ProjectRepositoryTest {
     }
 
     @Test
-    public void insertProject_Then_getProject_shouldBeSuccess() throws InterruptedException {
+    public void insertProject_Then_getProjectById_shouldBeSuccess() throws InterruptedException {
         // BEFORE: Adds a project
         this.mRepository.insertProject(FIRST_PROJECT);
 
@@ -124,7 +124,7 @@ public class ProjectRepositoryTest {
     }
 
     @Test
-    public void getProject_shouldBeNull() throws InterruptedException {
+    public void getProjectById_shouldBeNull() throws InterruptedException {
         final Project project = LiveDataTestUtil.getValue(this.mRepository.getProjectById(FIRST_PROJECT_ID));
 
         // TEST: Null Project

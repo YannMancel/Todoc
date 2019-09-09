@@ -1,6 +1,7 @@
 package com.cleanup.todoc.repositories;
 
 import android.arch.lifecycle.LiveData;
+import android.support.annotation.NonNull;
 
 import com.cleanup.todoc.model.pojos.Project;
 import com.cleanup.todoc.model.pojos.Task;
@@ -29,7 +30,7 @@ public interface Repository {
          * @param project a {@link Project}
          * @return an integer that contains the id value
          */
-        long insertProject(final Project project);
+        long insertProject(@NonNull final Project project);
 
         // -- READ --
 
@@ -37,6 +38,7 @@ public interface Repository {
          * Returns a {@link LiveData} of {@link List<Project>}
          * @return a {@link LiveData} of {@link List<Project>}
          */
+        @NonNull
         LiveData<List<Project>> getProjects();
 
         /**
@@ -44,6 +46,7 @@ public interface Repository {
          * @param projectId an integer that contains the id value
          * @return a {@link LiveData} of {@link Project}
          */
+        @NonNull
         LiveData<Project> getProjectById(final long projectId);
     }
 
@@ -60,7 +63,7 @@ public interface Repository {
          * @param task a {@link Task}
          * @return an integer that contains the id value
          */
-        long insertTask(final Task task);
+        long insertTask(@NonNull final Task task);
 
         // -- READ --
 
@@ -68,6 +71,7 @@ public interface Repository {
          * Returns a {@link LiveData} of {@link List<Task>}
          * @return a {@link LiveData} of {@link List<Task>}
          */
+        @NonNull
         LiveData<List<Task>> getTasks();
 
         /**

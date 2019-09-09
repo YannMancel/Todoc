@@ -1,6 +1,7 @@
 package com.cleanup.todoc.injections;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import com.cleanup.todoc.model.database.TodocDatabase;
 import com.cleanup.todoc.repositories.ProjectRepositoryImpl;
@@ -14,6 +15,8 @@ import java.util.concurrent.Executors;
  * Created by Yann MANCEL on 06/09/2019.
  * Name of the project: todoc-master
  * Name of the package: com.cleanup.todoc.injections
+ *
+ * Dependency injection
  */
 public abstract class Injection {
 
@@ -26,8 +29,9 @@ public abstract class Injection {
      * @param context a {@link Context}
      * @return a {@link Repository.ProjectRepository}
      */
-    public static Repository.ProjectRepository provideProjectRepository(final Context context) {
-        TodocDatabase database = TodocDatabase.getInstance(context);
+    @NonNull
+    public static Repository.ProjectRepository provideProjectRepository(@NonNull final Context context) {
+        final TodocDatabase database = TodocDatabase.getInstance(context);
         return new ProjectRepositoryImpl(database.mProjectDao());
     }
 
@@ -38,8 +42,9 @@ public abstract class Injection {
      * @param context a {@link Context}
      * @return a {@link Repository.TaskRepository}
      */
-    public static Repository.TaskRepository provideTaskRepository(final Context context) {
-        TodocDatabase database = TodocDatabase.getInstance(context);
+    @NonNull
+    public static Repository.TaskRepository provideTaskRepository(@NonNull final Context context) {
+        final TodocDatabase database = TodocDatabase.getInstance(context);
         return new TaskRepositoryImpl(database.mTaskDao());
     }
 
@@ -49,6 +54,7 @@ public abstract class Injection {
      * Provides a {@link Executor}
      * @return a {@link Executor}
      */
+    @NonNull
     public static Executor provideExecutor() {
         return Executors.newSingleThreadExecutor();
     }
@@ -60,7 +66,8 @@ public abstract class Injection {
      * @param context a {@link Context}
      * @return a {@link ViewModelFactory}
      */
-    public static ViewModelFactory provideViewModelFactory(final Context context) {
+    @NonNull
+    public static ViewModelFactory provideViewModelFactory(@NonNull final Context context) {
         return new ViewModelFactory(provideProjectRepository(context),
                                     provideTaskRepository(context),
                                     provideExecutor());

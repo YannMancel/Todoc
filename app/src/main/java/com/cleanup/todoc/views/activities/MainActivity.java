@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     @SuppressWarnings("NullableProblems")
     @NonNull
     private RecyclerView mRecyclerView;
-
     @SuppressWarnings("NullableProblems")
     @NonNull
     private TextView mNoDataTextView;
@@ -55,10 +54,8 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
 
     @Nullable
     public AlertDialog mDialog = null;
-
     @Nullable
     private EditText mDialogEditText = null;
-
     @Nullable
     private Spinner mDialogSpinner = null;
 
@@ -69,7 +66,6 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
                              RECENT_FIRST,
                              OLD_FIRST,
                              NONE}
-
     @NonNull
     private SortMethod mSortMethod = SortMethod.NONE;
 
@@ -78,7 +74,6 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     @SuppressWarnings("NullableProblems")
     @NonNull
     private TaskViewModel mViewModel;
-
     @SuppressWarnings("NullableProblems")
     @NonNull
     private TasksAdapter mAdapter;
@@ -106,10 +101,25 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.filter_alphabetical:
+                this.mSortMethod = SortMethod.ALPHABETICAL;
+                break;
+            case R.id.filter_alphabetical_inverted:
+                this.mSortMethod = SortMethod.ALPHABETICAL_INVERTED;
+                break;
+            case R.id.filter_recent_first:
+                this.mSortMethod = SortMethod.RECENT_FIRST;
+                break;
+            case R.id.filter_oldest_first:
+                this.mSortMethod = SortMethod.OLD_FIRST;
+                break;
+        }
+
+        // SORT
         final List<Task> newTasks = this.sortTasks(this.mAdapter.getCurrentTasks());
         this.mAdapter.updateTasks(newTasks);
 
-        // TODO: 08/09/2019 Finish this method 
         return super.onOptionsItemSelected(item);
     }
 
@@ -182,8 +192,8 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     }
 
     /**
-     * Updates the {@link List} of {@link Task}
-     * @param newTasks a {@link List} of {@link Task}
+     * Updates the {@link List<Task>}
+     * @param newTasks a {@link List<Task>}
      */
     private void updateTasks(@NonNull final List<Task> newTasks) {
         // TEXT VIEW
@@ -207,8 +217,8 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     // -- PROJECTS --
 
     /**
-     * Updates the {@link List} of {@link Project}
-     * @param newProjects a {@link List} of {@link Project}
+     * Updates the {@link List<Project>}
+     * @param newProjects a {@link List<Project>}
      */
     private void updateProjects(@NonNull final List<Project> newProjects) {
         this.mAdapter.updateProjects(newProjects);
@@ -320,9 +330,9 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     // -- SORT --
 
     /**
-     * Sorts the {@link List} of {@link Task} in argument and returns it
-     * @param tasks a {@link List} of {@link Task}
-     * @return the {@link List} of {@link Task} but sorted
+     * Sorts the {@link List<Task>} in argument and returns it
+     * @param tasks a {@link List<Task>}
+     * @return the {@link List<Task>} but sorted
      */
     @NonNull
     private List<Task> sortTasks(@NonNull final List<Task> tasks) {
