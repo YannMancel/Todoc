@@ -25,6 +25,7 @@ import com.cleanup.todoc.model.pojos.Project;
 import com.cleanup.todoc.model.pojos.Task;
 import com.cleanup.todoc.viewModels.TaskViewModel;
 import com.cleanup.todoc.views.recyclerViews.TasksAdapter;
+import com.facebook.stetho.Stetho;
 
 import java.util.Collections;
 import java.util.Date;
@@ -86,6 +87,9 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // STETHO to inspect the database
+        Stetho.initializeWithDefaults(this);
 
         this.configureDesign();
         this.configureViewModel();

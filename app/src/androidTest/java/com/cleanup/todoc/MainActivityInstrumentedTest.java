@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.cleanup.todoc.views.activities.MainActivity;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +21,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.cleanup.todoc.TestUtils.withRecyclerView;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -30,15 +32,31 @@ import static org.junit.Assert.assertThat;
  */
 @RunWith(AndroidJUnit4.class)
 public class MainActivityInstrumentedTest {
+
+    // FIELDS --------------------------------------------------------------------------------------
+
+    private MainActivity mMainActivity;
+
+    // RULES ---------------------------------------------------------------------------------------
+
     @Rule
-    public ActivityTestRule<MainActivity> rule = new ActivityTestRule<>(MainActivity.class);
+    public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
+
+    // METHODS -------------------------------------------------------------------------------------
+
+    @Before
+    public void setUp() {
+        this.mMainActivity = this.mActivityRule.getActivity();
+        assertThat(this.mMainActivity, notNullValue());
+    }
 
     @Test
     public void addAndRemoveTask() {
-        MainActivity activity = rule.getActivity();
-        TextView lblNoTask = activity.findViewById(R.id.lbl_no_task);
-        RecyclerView listTasks = activity.findViewById(R.id.list_tasks);
+        // Retrieves the id
+        TextView lblNoTask = this.mMainActivity.findViewById(R.id.lbl_no_task);
+        RecyclerView listTasks = this.mMainActivity.findViewById(R.id.list_tasks);
 
+        // ADD TASK
         onView(withId(R.id.fab_add_task)).perform(click());
         onView(withId(R.id.txt_task_name)).perform(replaceText("Tâche example"));
         onView(withId(android.R.id.button1)).perform(click());
@@ -50,6 +68,7 @@ public class MainActivityInstrumentedTest {
         // Check that it contains one element only
         assertThat(listTasks.getAdapter().getItemCount(), equalTo(1));
 
+        // DELETE TASK
         onView(withId(R.id.img_delete)).perform(click());
 
         // Check that lblTask is displayed
@@ -60,8 +79,7 @@ public class MainActivityInstrumentedTest {
 
     @Test
     public void sortTasks() {
-        MainActivity activity = rule.getActivity();
-
+        // ADD TASKS
         onView(withId(R.id.fab_add_task)).perform(click());
         onView(withId(R.id.txt_task_name)).perform(replaceText("aaa Tâche example"));
         onView(withId(android.R.id.button1)).perform(click());
@@ -73,11 +91,11 @@ public class MainActivityInstrumentedTest {
         onView(withId(android.R.id.button1)).perform(click());
 
         onView(withRecyclerView(R.id.list_tasks).atPositionOnView(0, R.id.lbl_task_name))
-                .check(matches(withText("aaa Tâche example")));
+                                                .check(matches(withText("aaa Tâche example")));
         onView(withRecyclerView(R.id.list_tasks).atPositionOnView(1, R.id.lbl_task_name))
-                .check(matches(withText("zzz Tâche example")));
+                                                .check(matches(withText("zzz Tâche example")));
         onView(withRecyclerView(R.id.list_tasks).atPositionOnView(2, R.id.lbl_task_name))
-                .check(matches(withText("hhh Tâche example")));
+                                                .check(matches(withText("hhh Tâche example")));
 
         // Sort alphabetical
         onView(withId(R.id.action_filter)).perform(click());
@@ -118,5 +136,13 @@ public class MainActivityInstrumentedTest {
                 .check(matches(withText("zzz Tâche example")));
         onView(withRecyclerView(R.id.list_tasks).atPositionOnView(2, R.id.lbl_task_name))
                 .check(matches(withText("aaa Tâche example")));
+
+        // DELETE TASKS
+        onView(withRecyclerView(R.id.list_tasks).atPositionOnView(0, R.id.img_delete))
+                                                .perform(click());
+        onView(withRecyclerView(R.id.list_tasks).atPositionOnView(0, R.id.img_delete))
+                                                .perform(click());
+        onView(withRecyclerView(R.id.list_tasks).atPositionOnView(0, R.id.img_delete))
+                                                .perform(click());
     }
 }
