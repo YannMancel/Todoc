@@ -10,11 +10,8 @@ env:
 
 android:
   components:
-    - $ANDROID_BUILD
-    - $ANDROID_TARGET
     - build-tools-$ANDROID_BUILD_TOOLS_VERSION
-    - extra-android-m2repository
-    - extra-android-support
+    - $ANDROID_TARGET
     - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
 
 before_install:
