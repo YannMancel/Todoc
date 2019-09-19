@@ -2,11 +2,14 @@ package com.cleanup.todoc.repositories;
 
 import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 
 import com.cleanup.todoc.model.dao.ProjectDao;
 import com.cleanup.todoc.model.pojos.Project;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Created by Yann MANCEL on 05/09/2019.
@@ -19,15 +22,22 @@ public class ProjectRepositoryImpl implements Repository.ProjectRepository {
 
     // FIELDS --------------------------------------------------------------------------------------
 
-    @NonNull
-    private final ProjectDao mProjectDao;
+    @Inject
+    ProjectDao mProjectDao;
 
     // CONSTRUCTORS --------------------------------------------------------------------------------
 
     /**
      * Constructor
+     */
+    @Inject
+    public ProjectRepositoryImpl() {}
+
+    /**
+     * Constructor
      * @param projectDao a {@link ProjectDao}
      */
+    @VisibleForTesting
     public ProjectRepositoryImpl(@NonNull ProjectDao projectDao) {
         this.mProjectDao = projectDao;
     }

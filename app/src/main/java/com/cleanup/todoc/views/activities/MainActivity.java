@@ -19,8 +19,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.cleanup.todoc.R;
-import com.cleanup.todoc.injections.Injection;
-import com.cleanup.todoc.injections.ViewModelFactory;
+import com.cleanup.todoc.TodocApplication;
+import com.cleanup.todoc.viewModels.ViewModelFactory;
 import com.cleanup.todoc.model.pojos.Project;
 import com.cleanup.todoc.model.pojos.Task;
 import com.cleanup.todoc.viewModels.TaskViewModel;
@@ -162,7 +162,8 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
      */
     private void configureViewModel() {
         // VIEW MODEL FACTORY
-        ViewModelFactory viewModelFactory = Injection.provideViewModelFactory(this);
+        ViewModelFactory viewModelFactory = ((TodocApplication) getApplication()).getApplicationComponent()
+                                                                                 .getViewModelFactory();
 
         // VIEW MODEL
         this.mViewModel = ViewModelProviders.of(this, viewModelFactory)
