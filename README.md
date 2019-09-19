@@ -28,6 +28,7 @@
 * [Stetho library](https://facebook.github.io/stetho/)
 * [Jacoco library](https://github.com/arturdm/jacoco-android-gradle-plugin)
 * [Room ORM](https://developer.android.com/training/data-storage/room/index.html)
+* [Dagger 2 library](https://github.com/google/dagger)
 
 
 ## Troubleshooting
